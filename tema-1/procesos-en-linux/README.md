@@ -515,13 +515,49 @@
     49229 pts/0    00:00:00 bash
     97831 pts/0    00:00:00 ps
     ```
-    
+
 ## Bloque 3
 
 21. Identifica el PID del proceso init/systemd y explica su función.
-22. Explica qué ocurre con el PPID de un proceso hijo si su padre termina antes.
-23. Ejecuta un programa que genere varios procesos hijos y observa sus PIDs con ps.
+
+    ```bash
+    PID TTY          TIME CMD
+      1 ?        00:00:01 systemd
+    ```
+
+    Es el primer proceso en iniciarse y gestiona el resto de procesos.
+22. Explica qué ocurre con el PPID de un proceso hijo si su padre termina antes.  
+    El proceso init pasa a "adoptarlo".
+
+23. Ejecuta un programa que genere varios procesos hijos y observa sus PIDs con ps.  
+
+    ```bash
+     dam  ~  xed &
+    [1] 138230
+     dam  ~  1  xeyes &
+    [2] 138358
+     dam  ~  2  pstree $$
+    bash─┬─pstree
+        ├─xed───6*[{xed}]
+        └─xeyes
+     dam  ~  2  ps -f
+    UID          PID    PPID  C STIME TTY          TIME CMD
+    dam        49229   49220  0 15:22 pts/0    00:00:00 bash
+    dam       138230   49229  0 17:06 pts/0    00:00:00 xed
+    dam       138358   49229  0 17:06 pts/0    00:00:00 xeyes
+    dam       138723   49229  0 17:06 pts/0    00:00:00 ps -f
+    ```
+
 24. Haz que un proceso quede en estado suspendido con Ctrl+Z y réanúdalo con fg.
+
+    ```bash
+     dam  ~  1  xeyes 
+    ^Z
+    [1]+  Detenido                xeyes
+     dam  ~  1  SIGTSTP  fg "%xeyes" 
+    xeyes
+    ```
+
 25. Lanza un proceso en segundo plano con & y obsérvalo con jobs.
 26. Explica la diferencia entre los estados de un proceso: Running, Sleeping, Zombie, Stopped.
 27. Usa ps -eo pid,ppid,stat,cmd para mostrar los estados de varios procesos.
