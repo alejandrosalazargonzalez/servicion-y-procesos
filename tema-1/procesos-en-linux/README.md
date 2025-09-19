@@ -1027,3 +1027,10 @@ max user processes                  (-u) 125404
 virtual memory              (kbytes, -v) unlimited
 file locks                          (-x) unlimited
 ```
+
+## Fuentes
+https://github.com/jpexposito/code-learn/tree/main/segundo/pgv/1-concurrente  
+https://blog.desdelinux.net/procesos-zombies  
+https://www.oscarblancarteblog.com/2017/03/29/concurrencia-vs-paralelismo  
+https://www.mentorestech.com/resource-blog-content/process-vs-threads  
+https://stackoverflow.com/questions/15595374/whats-the-difference-between-nohup-and-ampersand
