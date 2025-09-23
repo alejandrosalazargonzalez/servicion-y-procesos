@@ -187,7 +187,7 @@ tail -n 5 "$DAM/logs/fecha.log"
 **Reflexiona la salida:**
 
 ```text
-
+muestra el servicio creado en el ejercicio anterior, dando fecha, hora y un saludo desde el timer
 ```
 
 ---
@@ -216,11 +216,14 @@ systemctl --user list-timers --all | grep fecha-log || true
 **Salida (recorta):**
 
 ```text
+Created symlink /home/dam/.config/systemd/user/timers.target.wants/fecha-log.timer → /home/dam/.config/systemd/user/fecha-log.timer.
+Tue 2025-09-23 19:00:00 WEST  50s -                                       - fecha-log.timer                fecha-log.service
 
 ```
+
 **Pregunta:** ¿Qué diferencia hay entre `enable` y `start` cuando usas `systemctl --user`?  
 
-**Respuesta:**
+**Respuesta:** enable configura el servicio para que se inicie con el sistema y start lo inicia directamente.
 
 ---
 
@@ -233,12 +236,15 @@ journalctl --user -u fecha-log.service -n 10 --no-pager
 **Salida:**
 
 ```text
+sep 23 18:54:00 a108pc12 systemd[3314]: Started fecha-log.service - Escribe fecha en $HOME/dam/logs/fecha.log.
+sep 23 19:00:48 a108pc12 systemd[3314]: Started fecha-log.service - Escribe fecha en $HOME/dam/logs/fecha.log.
+sep 23 19:01:48 a108pc12 systemd[3314]: Started fecha-log.service - Escribe fecha en $HOME/dam/logs/fecha.log.
 
 ```
 
 **Pregunta:** ¿Ves ejecuciones activadas por el timer? ¿Cuándo fue la última?  
 
-**Respuesta:**
+**Respuesta:** No se ven ejecuciones activas, pero se ve que la ultima ejecucion fue a las 19:01:48.
 
 ---
 
@@ -253,11 +259,13 @@ lsof -i -P -n | grep LISTEN || ss -lntp
 **Salida:**
 
 ```text
-
+java      11409  dam   32u  IPv6  62910      0t0  TCP 127.0.0.1:64120 (LISTEN)
+java      42272  dam   32u  IPv6 121071      0t0  TCP 127.0.0.1:64121 (LISTEN)
 ```
+
 **Pregunta:** ¿Qué procesos *tuyos* están escuchando? (si no hay, explica por qué)  
 
-**Respuesta:**
+**Respuesta:** los dos procesos que salen en la ejecucion del comando anterior estan escuchando
 
 ---
 
