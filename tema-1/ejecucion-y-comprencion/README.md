@@ -55,33 +55,34 @@ El segundo comprueba el estado del proceso systemctl.
 
 1) ¿Qué es **systemd** y en qué se diferencia de SysV init?  
 
-**Respuesta:**   
+**Respuesta:** Ambos son sistemas de inicializacion, SysV fue uno de los primeros sistemas de inicializacion de linux y systemd es el más moderno.  
+SysV se basa en un diseño secuencial donde los servicios se inician uno por uno, mientras que sistemd usa un enfoque parelelo y secuencial, pudiendo asi iniciar varios servicios simultaneamoente.
 
-_Fuentes:_
+_Fuentes:_[maxizamorano](https://www.maxizamorano.com/entrada/19/proceso-de-arranque-en-linux-systemd-vs-sysv-init)
 
-2) **Servicio** vs **proceso** (ejemplos).  
+1) **Servicio** vs **proceso** (ejemplos).  
 
-**Respuesta:**  
+**Respuesta:** Los servicios son un subconjunto de procesos, sin interfaz grafica y gestionados por un programa central, como systemd en Linux. El propio systemd es un ejempro de servicio, no tiene interfaz y se ejecuta permanentemente en segundo plano, mientras que los procesos son aquellos programas que suelen tener interfaz grafica y no funcionan permanentemente, como juegos o buscadores.    
 
-_Fuentes:_
+_Fuentes:_[reddit](https://www.reddit.com/r/explainlikeimfive/comments/1n6jm99/eli5_what_is_the_difference_between_a_process_and/?tl=es-419)
 
-3) ¿Qué son los **cgroups** y para qué sirven?  
+1) ¿Qué son los **cgroups** y para qué sirven?  
 
-**Respuesta:**  
+**Respuesta:** es una funcion del kernel de linux que permite agrupar perocesos y controlar los recursos que consumen, esta herramienta permite crear una gerarquia de control asiganando limites, y permitiendo al sistema monitorear, limitar, priorizar y aislar procesos de una forma más eficiente.  
 
-_Fuentes:_
+_Fuentes:_[sergiobelkin](https://sergiobelkin.com/posts/que-son-los-cgroups-y-para-que-sirven/)
 
-4) ¿Qué es un **unit file** y tipos (`service`, `timer`, `socket`, `target`)?  
+1) ¿Qué es un **unit file** y tipos (`service`, `timer`, `socket`, `target`)?  
 
-**Respuesta:**  
+**Respuesta:** un unit file es un archivo que le dice al sistema como gestionar los recursos con ciertos procesos. Los tipos contienen directivas especificas para cada tipo.  
 
-_Fuentes:_
+_Fuentes:_ [suse](https://documentation.suse.com/es-es/sle-micro/6.0/html/Micro-systemd-basics/index.html)
 
 5) ¿Qué hace `journalctl` y cómo ver logs **de usuario**?  
 
-**Respuesta:**  
+**Respuesta:** journalctl muestra registros de evento, tambien llamados ficheros log, se pueden filtrar los logs por id lo que permite ver los logs de un usuario concreto.  
 
-_Fuentes:_
+_Fuentes:_[ionos](https://www.ionos.es/digitalguide/servidores/herramientas/que-es-journalctl/)
 
 ---
 
@@ -96,15 +97,18 @@ _Fuentes:_
 ```bash
 echo "PID=$$  PPID=$PPID"
 ```
+
 **Salida:**
 
 ```text
+echo "PID=$$ PPID=$PPID"
+PID=8222 PPID=8213
 
 ```
 
 **Pregunta:** ¿Qué proceso es el padre (PPID) de tu shell ahora?  
 
-**Respuesta:**
+**Respuesta:** 8213   /usr/libexec/gnome-terminal-server
 
 ---
 
@@ -117,11 +121,12 @@ pidof systemd --user || pgrep -u "$USER" -x systemd
 **Salida:**
 
 ```text
-
+3314
 ```
+
 **Pregunta:** ¿Qué hace el *user manager* de systemd para tu sesión?  
 
-**Respuesta:**
+**Respuesta:** es un proceso systemd que se encarga de gestionar los servicios del usuario.
 
 ---
 
@@ -160,6 +165,11 @@ systemctl --user status fecha-log.service --no-pager -l | sed -n '1,10p'
 **Salida (pega un extracto):**
 
 ```text
+○ fecha-log.service - Escribe fecha en $HOME/dam/logs/fecha.log
+     Loaded: loaded (/home/dam/.config/systemd/user/fecha-log.service; static)
+     Active: inactive (dead)
+
+sep 23 18:54:00 a108pc12 systemd[3314]: Started fecha-log.service - Escribe fecha en $HOME/dam/logs/fecha.log.
 
 ```
 **Pregunta:** ¿Se creó/actualizó `~/dam/logs/fecha.log`? Muestra las últimas líneas:
@@ -171,7 +181,7 @@ tail -n 5 "$DAM/logs/fecha.log"
 **Salida:**
 
 ```text
-
+2025-09-23T18:54:00+01:00 :: hello from user timer
 ```
 
 **Reflexiona la salida:**
