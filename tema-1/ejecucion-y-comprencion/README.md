@@ -279,8 +279,9 @@ ps -eo pid,ppid,cmd,stat | grep "[s]leep 200"
 **Salida:**
 
 ```text
-
+Running as unit: run-r83ad5e443361409898ce33545fa1097b.scope; invocation ID: 0b846b3ce0b747eb834f743ff3e437e9
 ```
+
 **Pregunta:** ¿Qué ventaja tiene lanzar con `systemd-run --user` respecto a ejecutarlo “a pelo”?  
 
 **Respuesta:**
@@ -295,11 +296,26 @@ top -b -n 1 | head -n 15
 **Salida (resumen):**
 
 ```text
+top - 19:45:43 up  4:43,  1 user,  load average: 0,34, 0,77, 0,92
+Tareas: 424 total,   1 ejecutar,  423 hibernar,    0 detener,    0 zombie
+%Cpu(s):  1,4 us,  5,4 sy,  0,0 ni, 92,6 id,  0,7 wa,  0,0 hi,  0,0 si,  0,0 st 
+MiB Mem :  31453,3 total,  12308,5 libre,   9748,4 usado,  10019,2 búf/caché    
+MiB Intercambio:   2048,0 total,   2048,0 libre,      0,0 usado.  21704,9 dispon
 
+    PID USUARIO   PR  NI    VIRT    RES    SHR S  %CPU  %MEM     HORA+ ORDEN
+ 139996 dam       20   0   17224   5760   3584 R   9,1   0,0   0:00.02 top
+      1 root      20   0   23236  14404   9584 S   0,0   0,0   0:01.98 systemd
+      2 root      20   0       0      0      0 S   0,0   0,0   0:00.02 kthreadd
+      3 root      20   0       0      0      0 S   0,0   0,0   0:00.00 pool_wo+
+      4 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 kworker+
+      5 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 kworker+
+      6 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 kworker+
+      7 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 kworker+
 ```
+
 **Pregunta:** ¿Cuál es tu proceso con mayor `%CPU` en ese momento?  
 
-**Respuesta:**
+**Respuesta:** 139996 dam       20   0   17224   5760   3584 R   9,1   0,0   0:00.02 top
 
 ---
 
@@ -314,11 +330,14 @@ strace -p "$pid" -e trace=nanosleep -tt -c -f 2>&1 | sed -n '1,10p'
 **Salida (fragmento):**
 
 ```text
+strace: must have PROG [ARGS] or -p PID
+Try 'strace -h' for more information.
 
 ```
+
 **Pregunta:** Explica brevemente la syscall que observaste.  
 
-**Respuesta:**
+**Respuesta:** sale un error porque no encuentra el proceso
 
 ---
 
@@ -333,8 +352,58 @@ pstree -p | head -n 50
 **Salida (recorta):**
 
 ```text
-
+systemd(1)-+-ModemManager(1854)-+-{ModemManager}(1864)
+           |                    |-{ModemManager}(1867)
+           |                    `-{ModemManager}(1869)
+           |-NetworkManager(1827)-+-{NetworkManager}(1859)
+           |                      |-{NetworkManager}(1860)
+           |                      `-{NetworkManager}(1861)
+           |-accounts-daemon(1172)-+-{accounts-daemon}(1196)
+           |                       |-{accounts-daemon}(1197)
+           |                       `-{accounts-daemon}(1824)
+           |-agetty(2233)
+           |-apache2(2289)-+-apache2(2317)
+           |               |-apache2(2318)
+           |               |-apache2(2319)
+           |               |-apache2(2321)
+           |               `-apache2(2322)
+           |-at-spi2-registr(3677)-+-{at-spi2-registr}(3681)
+           |                       |-{at-spi2-registr}(3682)
+           |                       `-{at-spi2-registr}(3683)
+           |-avahi-daemon(1174)---avahi-daemon(1254)
+           |-blkmapd(1104)
+           |-colord(2018)-+-{colord}(2025)
+           |              |-{colord}(2026)
+           |              `-{colord}(2028)
+           |-containerd(1998)-+-{containerd}(2020)
+           |                  |-{containerd}(2021)
+           |                  |-{containerd}(2022)
+           |                  |-{containerd}(2023)
+           |                  |-{containerd}(2024)
+           |                  |-{containerd}(2037)
+           |                  |-{containerd}(2038)
+           |                  |-{containerd}(2043)
+           |                  |-{containerd}(2044)
+           |                  |-{containerd}(2045)
+           |                  |-{containerd}(2053)
+           |                  |-{containerd}(2054)
+           |                  |-{containerd}(2379)
+           |                  |-{containerd}(2380)
+           |                  `-{containerd}(2381)
+           |-containerd-shim(3141)-+-apache2(3163)-+-apache2(3276)
+           |                       |               |-apache2(3277)
+           |                       |               |-apache2(3278)
+           |                       |               |-apache2(3279)
+           |                       |               `-apache2(3280)
+           |                       |-{containerd-shim}(3142)
+           |                       |-{containerd-shim}(3143)
+           |                       |-{containerd-shim}(3144)
+           |                       |-{containerd-shim}(3145)
+           |                       |-{containerd-shim}(3146)
+           |                       |-{containerd-shim}(3147)
+           |                       |-{containerd-shim}(3148)
 ```
+
 **Pregunta:** ¿Bajo qué proceso aparece tu `systemd --user`?  
 
 **Respuesta:**
@@ -346,11 +415,32 @@ pstree -p | head -n 50
 ```bash
 ps -eo pid,ppid,stat,cmd | head -n 20
 ```
+
 **Salida:**
 
 ```text
-
+    PID    PPID STAT CMD
+      1       0 Ss   /sbin/init splash
+      2       0 S    [kthreadd]
+      3       2 S    [pool_workqueue_release]
+      4       2 I<   [kworker/R-rcu_g]
+      5       2 I<   [kworker/R-rcu_p]
+      6       2 I<   [kworker/R-slub_]
+      7       2 I<   [kworker/R-netns]
+     10       2 I<   [kworker/0:0H-events_highpri]
+     12       2 I<   [kworker/R-mm_pe]
+     13       2 I    [rcu_tasks_kthread]
+     14       2 I    [rcu_tasks_rude_kthread]
+     15       2 I    [rcu_tasks_trace_kthread]
+     16       2 S    [ksoftirqd/0]
+     17       2 I    [rcu_preempt]
+     18       2 S    [migration/0]
+     19       2 S    [idle_inject/0]
+     20       2 S    [cpuhp/0]
+     21       2 S    [cpuhp/1]
+     22       2 S    [idle_inject/1]
 ```
+
 **Pregunta:** Explica 3 flags de `STAT` que veas (ej.: `R`, `S`, `T`, `Z`, `+`).  
 
 **Respuesta:**
