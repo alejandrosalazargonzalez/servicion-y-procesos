@@ -406,7 +406,11 @@ systemd(1)-+-ModemManager(1854)-+-{ModemManager}(1864)
 
 **Pregunta:** ¿Bajo qué proceso aparece tu `systemd --user`?  
 
-**Respuesta:**
+**Respuesta:**  
+  systemd(3306)─┬─(sd-pam)(3307)
+           │               ├─chrome_crashpad(4934)─┬─{chrome_crashpad}(4935)
+           │               │                       └─{chrome_crashpad}(4936)
+           │               ├─code(4903)─┬─code(4912)───code(4951)─┬─{code}(4972+
 
 ---
 
@@ -443,7 +447,7 @@ ps -eo pid,ppid,stat,cmd | head -n 20
 
 **Pregunta:** Explica 3 flags de `STAT` que veas (ej.: `R`, `S`, `T`, `Z`, `+`).  
 
-**Respuesta:**
+**Respuesta:** S significa que esta sleeping, la I es idle kernel, la s que es lider de la sesion y < que tiene alta prioridad.
 
 ---
 
@@ -462,14 +466,21 @@ kill -CONT "$pid"
 # Estado
 ps -o pid,stat,cmd -p "$pid"
 ```
+
 **Pega los dos estados (antes/después):**
 
 ```text
+    PID STAT CMD
+  35613 T    sleep 1200
+
+    PID STAT CMD
+  35613 S    sleep 1200
 
 ```
+
 **Pregunta:** ¿Qué flag indicó la suspensión?  
 
-**Respuesta:**
+**Respuesta:** la T en el STAT
 
 ---
 
@@ -491,11 +502,11 @@ ps -el | grep ' Z '
 **Salida (recorta):**
 
 ```text
-
+1 Z  1001   39208   39207  0  80   0 -     0 -      pts/0    00:00:00 zombie
 ```
 **Pregunta:** ¿Por qué el estado `Z` y qué lo limpia finalmente?  
 
-**Respuesta:**
+**Respuesta:** el estado Z indica que es un proceso zombie y se puede limpiar con el comando kill
 
 ---
 
