@@ -13,13 +13,6 @@ import org.springframework.stereotype.Component;
 public class Procesos {
 
     /**
-     * imprime en pantalla un sout
-     */
-    public void ejecutar() {
-        System.out.println("Ejecutando lógica del proceso...");
-    }
-
-    /**
      * crea un fichero donde se guarda el registro de los procesos de java
      */
     public void procesosEnFichero(){

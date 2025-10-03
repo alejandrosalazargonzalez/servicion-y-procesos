@@ -24,7 +24,6 @@ public class ProcesosServiciosApplication {
         return args -> {
             System.out.println("Iniciando proceso al arrancar la aplicación...");
 
-            procesos.ejecutar();
             procesos.procesosEnFichero();
             procesos.contarLineas();
             System.out.println("Proceso finalizado.");
