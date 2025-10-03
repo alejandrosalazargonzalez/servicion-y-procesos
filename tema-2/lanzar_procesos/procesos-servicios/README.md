@@ -34,12 +34,9 @@ Proyecto Maven con **Spring Boot** (JDK 17). Demuestra cómo **ejecutar y contro
 **ProcesosServiciosApplication** 
 - → clase principal de Spring Boot.
 - **Procesos** → componente que implementa ejemplos de uso de procesos:
-  - `listarDirectorio(String ruta)` → ejecuta `ls -l`.
-  - `contarProcesosJava()` → ejecuta `ps aux | grep java | wc -l`.
-  - `guardarProcesosAFichero(Path destino)` → guarda procesos en un fichero.
-  - `ordenarTextoConSort(String[] lineas)` → ordena texto con `sort`.
-  - `ejecutarConTimeout(String[] comando, long timeoutMs)` → ejecuta con límite de tiempo.
   - `ejecutarEnParalelo(List<List<String>> comandos, int maxParalelos)` → varios procesos simultáneos.
+  - `procesosEnFicheros()`->pasa el resultado a un fichero
+  - `contarLienas()`-> cuenta las lineas de un fichero
 
 ## 💡 Notas
 
