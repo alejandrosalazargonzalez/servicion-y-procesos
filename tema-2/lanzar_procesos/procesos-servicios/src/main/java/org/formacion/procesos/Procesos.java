@@ -2,10 +2,8 @@ package org.formacion.procesos;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,6 +15,8 @@ public class Procesos {
 
     /**
      * crea un fichero donde se guarda el registro de los procesos de java
+     * @throws IOException 
+     * @throws InterruptedException
      */
     public void procesosEnFichero(){
             ProcessBuilder pb = new ProcessBuilder("sh", "-c", "ps aux | grep java");
@@ -32,6 +32,7 @@ public class Procesos {
 
     /**
      * cuenta las lineas y si son mayor a 3 imprime un aviso en consola
+     * @throws IOException
      */
     public void contarLineas(){
             int lineCount = 0;
@@ -39,8 +40,6 @@ public class Procesos {
                 while (br.readLine() != null) {
                     lineCount++;
                 }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
