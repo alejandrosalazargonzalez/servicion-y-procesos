@@ -1,4 +1,4 @@
-package org.formacion.procesos.repository;
+package org.formacion.procesos.Interfaces;
 
 /**
  * @author alejandrosalazargonzalez

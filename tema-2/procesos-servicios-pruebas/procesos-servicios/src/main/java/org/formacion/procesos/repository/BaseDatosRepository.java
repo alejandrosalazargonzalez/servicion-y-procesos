@@ -1,5 +1,6 @@
 package org.formacion.procesos.repository;
 
+import org.formacion.procesos.Interfaces.IFicheroRepository;
 import org.springframework.stereotype.Repository;
 
 /**
