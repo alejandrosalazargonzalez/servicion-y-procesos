@@ -1,14 +1,14 @@
-package org.formacion.procesos.servicios;
+package org.formacion.procesos.controller;
 
 import java.util.Scanner;
 
-import org.formacion.procesos.controller.ComandoControllerLs;
-import org.formacion.procesos.controller.ComandoControllerPs;
+import org.formacion.procesos.services.ComandoControllerLs;
+import org.formacion.procesos.services.ComandoControllerPs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RunnerService {
+public class RunnerController {
     
     @Autowired
     ComandoControllerLs comandoControllerLs;
