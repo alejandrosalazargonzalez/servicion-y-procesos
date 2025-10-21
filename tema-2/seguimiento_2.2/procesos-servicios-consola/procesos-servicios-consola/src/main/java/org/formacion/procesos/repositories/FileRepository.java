@@ -1,6 +1,6 @@
-package org.formacion.procesos.repositorio;
+package org.formacion.procesos.repositories;
 
-import org.formacion.procesos.repositorio.interfaces.CrudInterface;
+import org.formacion.procesos.repositories.interfaces.CrudInterface;
 import org.springframework.stereotype.Repository;
 
 @Repository

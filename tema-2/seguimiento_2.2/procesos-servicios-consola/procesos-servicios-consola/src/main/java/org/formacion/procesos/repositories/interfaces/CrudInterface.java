@@ -1,4 +1,4 @@
-package org.formacion.procesos.repositorio.interfaces;
+package org.formacion.procesos.repositories.interfaces;
 
 public interface CrudInterface {
 
