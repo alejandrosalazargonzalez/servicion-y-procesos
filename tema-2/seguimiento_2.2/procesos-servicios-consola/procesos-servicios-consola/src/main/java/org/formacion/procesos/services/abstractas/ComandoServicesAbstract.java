@@ -8,13 +8,22 @@ import org.formacion.procesos.repositories.interfaces.CrudInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class ComandoServicesAbstract {
+    
+    CrudInterface fileRepository;
+    
+    public CrudInterface getFileRepository(){
+        return fileRepository;
+    }
+
+    @Autowired
+    public void setFileRepository(CrudInterface fileRepository){
+        this.fileRepository = fileRepository;
+    }
+    
     private String comando;
     private ProcessType tipo;
     private String expresionRegular;
-
-    @Autowired
-    CrudInterface fileRepository;
-
+    
     public ProcessType getTipo() {
         if (this.tipo == null) {
             return null;
