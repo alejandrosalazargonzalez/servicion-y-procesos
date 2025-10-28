@@ -60,7 +60,7 @@ public abstract class ComandoServicesAbstract {
     }
 
     public void procesarLinea(String linea){
-        String[] arrayComando = linea.split("\s*");
+        String[] arrayComando = linea.split("\s+");
         setComando(arrayComando[0]);
         System.out.println("Comando: " + getComando());
         if (!validar(arrayComando)) {
@@ -90,7 +90,11 @@ public abstract class ComandoServicesAbstract {
         if (!validarComando()) {
             return false;
         }
-        String parametro = arrayComando[1];
+
+        if (arrayComando.length - 1 == 0) {
+            return true;
+        }
+        String parametro = arrayComando[arrayComando.length - 1];
         Pattern pattern = Pattern.compile(expresionRegular);
         Matcher matcher = pattern.matcher(parametro);
         if (!matcher.find()) {

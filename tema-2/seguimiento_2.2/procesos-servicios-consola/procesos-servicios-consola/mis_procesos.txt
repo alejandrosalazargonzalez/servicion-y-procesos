@@ -1,0 +1,6 @@
+    PID TTY          TIME CMD
+ 195941 pts/5    00:00:00 bash
+ 242055 pts/5    00:00:09 java
+ 242212 pts/5    00:00:01 java
+ 242311 pts/5    00:00:00 sh
+ 242312 pts/5    00:00:00 ps

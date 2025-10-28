@@ -3,12 +3,11 @@ package org.formacion.procesos;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.InputStreamReader;
 
 @Component
 public class Procesos {
-
+/* 
     public void ejecutar() {
         try {
             System.out.println("Ejecutando lógica del proceso...");
@@ -40,4 +39,4 @@ public class Procesos {
             e.printStackTrace();
         }
     }
-}
+ */}

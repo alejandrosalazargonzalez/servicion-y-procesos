@@ -3,7 +3,6 @@ package org.formacion.procesos.repositories;
 import org.formacion.procesos.repositories.interfaces.CrudInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.net.URL;
@@ -16,10 +15,10 @@ import java.nio.file.StandardOpenOption;
 public class FileRepository implements CrudInterface{
 
     private static Logger logger = LoggerFactory.getLogger(FileRepository.class);
-    static String fileName;
+    String fileName;
     static Path path;
 
-    @Autowired
+
     public void setFileName(String fileName){
         this.fileName = fileName;
     }
