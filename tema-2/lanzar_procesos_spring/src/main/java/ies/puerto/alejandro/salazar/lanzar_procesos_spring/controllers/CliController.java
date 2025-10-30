@@ -26,7 +26,7 @@ public class CliController {
         System.out.println("=== Lanzador de Procesos (CLI) Linux/Windows ===\n" +
                 "Comandos:\n" +
                 "  lsof -i\n" +
-                "  top\n" +
+                "  top -bn1\n" +
                 "  ps aux | head\n");
         String linea = scanner.nextLine();
         String inicio = linea.toUpperCase().split("\s+")[0];

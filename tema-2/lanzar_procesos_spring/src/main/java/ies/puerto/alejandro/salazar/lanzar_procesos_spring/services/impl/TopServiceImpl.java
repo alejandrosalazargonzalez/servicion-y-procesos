@@ -10,6 +10,6 @@ public class TopServiceImpl extends CommandService{
 
     public TopServiceImpl(){
         this.setTipo(Job.TOP);
-        
+        this.setExpresionRegular("^((-(bn1))|\s*)$");
     }
 }
