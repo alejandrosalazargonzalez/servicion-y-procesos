@@ -91,11 +91,12 @@ public abstract class CommandService {
         if (!validarComando()) {
             return false;
         }
+        
         if (arrayComando.length - 1 == 0) {
             return true;
         }
 
-        String parametro = arrayComando[arrayComando.length -1];
+        String parametro = arrayComando[arrayComando.length - 1];
         Pattern pattern = Pattern.compile(expresionRegular);
         Matcher matcher = pattern.matcher(parametro);
         if (!matcher.find()) {

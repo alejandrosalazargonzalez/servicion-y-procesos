@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import ies.puerto.alejandro.salazar.lanzar_procesos_spring.controller.CliController;
+import ies.puerto.alejandro.salazar.lanzar_procesos_spring.controllers.CliController;
 
 @SpringBootApplication
 public class ProcCliApplication {
