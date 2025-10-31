@@ -1,3 +1,4 @@
+
 package ies.puerto.alejandro.salazar.lanzar_procesos_spring.controllers;
 
 import java.util.Scanner;
@@ -9,6 +10,10 @@ import ies.puerto.alejandro.salazar.lanzar_procesos_spring.services.impl.LsofSer
 import ies.puerto.alejandro.salazar.lanzar_procesos_spring.services.impl.PsHeadServiceImpl;
 import ies.puerto.alejandro.salazar.lanzar_procesos_spring.services.impl.TopServiceImpl;
 
+/**
+ *  @author: alejandrosalazargonzalez
+ *  @version: 1.0.0
+ */
 @Service
 public class CliController {
     
@@ -21,6 +26,9 @@ public class CliController {
     @Autowired
     TopServiceImpl comandoControllerTop;
     
+    /**
+     * funcion que imprime el menu en pantalla
+     */
     public void menuConsola() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("=== Lanzador de Procesos (CLI) Linux/Windows ===\n" +
@@ -46,13 +54,6 @@ public class CliController {
                 System.out.println("comando no valido");
                 break;
         }
-/* 
-        if (linea.toUpperCase().startsWith("PS")) {
-            comandoController.procesarLinea(linea);
-        }else{
-            comandoControllerLs.procesarLinea(linea);
-        }
- */
         System.out.println("comando que pretendo lanzar: " + linea);
         scanner.close();
     }

@@ -2,8 +2,13 @@ package ies.puerto.alejandro.salazar.lanzar_procesos_spring.repositories.interfa
 
 import java.nio.file.Path;
 
+/**
+ *  @author: alejandrosalazargonzalez
+ *  @version: 1.0.0
+ * 
+ * interfaz de FileJobRepository
+ */
 public interface JobRepository {
 
-    public boolean add(String text);
     public Path getPath();
 }

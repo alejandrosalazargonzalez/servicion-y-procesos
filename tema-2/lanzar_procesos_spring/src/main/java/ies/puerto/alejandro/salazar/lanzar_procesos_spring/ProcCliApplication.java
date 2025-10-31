@@ -7,6 +7,10 @@ import org.springframework.context.annotation.Bean;
 
 import ies.puerto.alejandro.salazar.lanzar_procesos_spring.controllers.CliController;
 
+/**
+ *  @author: alejandrosalazargonzalez
+ *  @version: 1.0.0
+ */
 @SpringBootApplication
 public class ProcCliApplication {
 
