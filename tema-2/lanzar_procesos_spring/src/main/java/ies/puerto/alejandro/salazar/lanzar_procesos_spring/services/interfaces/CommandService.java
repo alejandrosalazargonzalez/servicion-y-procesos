@@ -95,8 +95,11 @@ public abstract class CommandService {
         if (arrayComando.length - 1 == 0) {
             return true;
         }
-
-        String parametro = arrayComando[arrayComando.length - 1];
+        
+        String parametro = "";
+        for (int i = 1; i < arrayComando.length; i++) {
+            parametro +=  arrayComando[i]+ " ";
+        }
         Pattern pattern = Pattern.compile(expresionRegular);
         Matcher matcher = pattern.matcher(parametro);
         if (!matcher.find()) {

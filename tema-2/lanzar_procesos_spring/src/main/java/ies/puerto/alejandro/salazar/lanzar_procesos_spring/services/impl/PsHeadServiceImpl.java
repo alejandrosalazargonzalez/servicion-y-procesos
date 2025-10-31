@@ -11,7 +11,7 @@ public class PsHeadServiceImpl extends CommandService{
 
     public PsHeadServiceImpl(){
         this.setTipo(Job.PS);
-        this.setExpresionRegular("^((-(aux))|\s*)$");
+        this.setExpresionRegular("^(aux\\s+\\|\\s+head\s*)$");
     }
 
 }
