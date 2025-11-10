@@ -1,15 +1,14 @@
+package es.ies.puerto.lanzar_hilos;
 import org.junit.jupiter.api.Test;
-
-import es.ies.puerto.lanzar_hilos.SaiyanRace;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SaiyanRaceTest {
+class SaiyanRaceTest {
 
     @Test
-    public void testSaiyanRace() throws InterruptedException {
+    void testSaiyanRace() throws InterruptedException {
         // Redirigir la salida estándar
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));

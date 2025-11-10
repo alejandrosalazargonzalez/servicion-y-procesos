@@ -6,20 +6,36 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ *   @author: alejandrosalazargonzalez
+ *   @version: 1.0.0
+ */
 public class BatallaPokemon {
-    public AtomicBoolean juegoTerminado = new AtomicBoolean(false);
-    public AtomicInteger hpPikachu = new AtomicInteger(100);
-    public AtomicInteger hpCharmander = new AtomicInteger(100);
-    public String turno = "Pikachu";        // alternancia estricta
-    public ReentrantLock m = new ReentrantLock();
-    public Condition turnoCambio = m.newCondition();
+    static AtomicBoolean juegoTerminado = new AtomicBoolean(false);
+    static final AtomicInteger hpPikachu = new AtomicInteger(100);
+    static final AtomicInteger hpCharmander = new AtomicInteger(100);
+    static String turno = "Pikachu";        // alternancia estricta
+    static final ReentrantLock m = new ReentrantLock();
+    static final Condition turnoCambio = m.newCondition();
 
-    public void atacar (String atacante, AtomicInteger hpObjetivo){
-        AtomicInteger dano = ThreadLocalRandom.current().nextInt(5, 21);
-        hpObjetivo -= dano;
+    public static AtomicBoolean getJuegoTerminado() {
+        return juegoTerminado;
+    }
+
+    public static AtomicInteger getHppikachu() {
+        return hpPikachu;
+    }
+
+    public static AtomicInteger getHpcharmander() {
+        return hpCharmander;
+    }
+
+    public static void atacar (String atacante, AtomicInteger hpObjetivo){
+        int dano = ThreadLocalRandom.current().nextInt(5, 21);
+        hpObjetivo.addAndGet(-dano);
         System.out.println(atacante + " ataca con " + dano + " de daño. HP rival: " + hpObjetivo);
 
-        if(hpObjetivo <= 0 && !juegoTerminado.get()){
+        if(hpObjetivo.get() <= 0 && !juegoTerminado.get()){
             juegoTerminado = new AtomicBoolean(true);
             System.out.println(atacante + " ha ganado la batalla!");
         }
@@ -30,7 +46,7 @@ public class BatallaPokemon {
         }
     }
 
-    Runnable HiloPikachu = () -> {
+    Runnable hiloPikachu = () -> {
         while (!juegoTerminado.get()){
             m.lock();
             try {
@@ -40,16 +56,16 @@ public class BatallaPokemon {
                 if( juegoTerminado.get()) break;
                 atacar("Pikachu", hpCharmander);
                 turno = "Charmander";
-                turnoCambio.signalAll();;
+                turnoCambio.signalAll();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             } finally{
-                m.unlock();;
+                m.unlock();
             }
         }
     };
 
-    Runnable HiloCharmander = () -> {
+    Runnable hiloCharmander = () -> {
         while(!juegoTerminado.get()){
             m.lock();
             try {
@@ -69,8 +85,8 @@ public class BatallaPokemon {
     };
 
     public void main(){
-        Thread pikachu = new Thread(new BatallaPokemon().HiloPikachu);
-        Thread charmander = new Thread(new BatallaPokemon().HiloCharmander);
+        Thread pikachu = new Thread(new BatallaPokemon().hiloPikachu);
+        Thread charmander = new Thread(new BatallaPokemon().hiloCharmander);
         pikachu.start();
         charmander.start();
         try {
