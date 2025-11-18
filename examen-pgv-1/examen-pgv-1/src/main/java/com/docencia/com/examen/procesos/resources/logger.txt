@@ -1,0 +1,11 @@
+S.ficheros     Tamaño Usados  Disp Uso% Montado en
+tmpfs            3,1G   2,6M  3,1G   1% /run
+efivarfs         128K    24K  100K  19% /sys/firmware/efi/efivars
+/dev/sdb3        172G    83G   81G  51% /
+tmpfs             16G    18M   16G   1% /dev/shm
+tmpfs            5,0M    12K  5,0M   1% /run/lock
+tmpfs             16G      0   16G   0% /run/qemu
+/dev/sda1        938G    76G  815G   9% /home
+/dev/sdb2        512M   6,2M  506M   2% /boot/efi
+/dev/sdb4        295G   114G  167G  41% /home/dam
+tmpfs            3,1G   196K  3,1G   1% /run/user/1001
