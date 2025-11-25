@@ -9,11 +9,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.docencia</groupId>
-	<artifactId>rest</artifactId>
+	<artifactId>Spring-resst-producto</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>rest</name>
-	<description>Ejemplo inicial de servicio red</description>
+	<name>Spring Rest Producto</name>
+	<description>Ejemplo de relacion de bbdd (relacional + no relacional)</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -29,6 +29,7 @@
 	</scm>
 	<properties>
 		<java.version>17</java.version>
+			<openapi.version>2.0.2</openapi.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -46,7 +47,7 @@
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>2.0.2</version>
+			<version>${openapi.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>

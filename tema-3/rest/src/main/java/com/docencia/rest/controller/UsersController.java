@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/user")
 
 public class UsersController {
 
@@ -28,7 +28,7 @@ public class UsersController {
     }
 
     @Operation(summary = "Get all users")
-    @GetMapping("/users/")
+    @GetMapping("/")
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
@@ -38,7 +38,7 @@ public class UsersController {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "404", description = "User not found")
     })
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable(value = "id") int userId) throws ResourceNotFoundException {
         User user = userService.getUserById(userId);
         return ResponseEntity.ok().body(user);
