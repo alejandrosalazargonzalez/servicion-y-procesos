@@ -43,7 +43,7 @@ public class ServidorMazmorras {
     }
 
     public static void main(String[] args) {
-        ExecutorService gmBots = Executors.newFixedThreadPool(10);
+        ExecutorService gmBots = Executors.newFixedThreadPool(2);
 
         String[] jugadores = { "Link", "Zelda", "Geralt", "Yennefer", "Gandalf", "Frodo", "Aragorn", "Leia", "Luke",
                 "Vader" };
